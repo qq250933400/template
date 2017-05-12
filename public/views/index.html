@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{$title}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--{include meta}-->
+        
+    </head>
+    <body>
+        <include file='header'/>
+        <p>
+        <!--{$test_var}-->
+        </p>
+        <span>数组测试：{$data.test}</span>
+        <a href="index.php?a=clear_cache">清除缓存</a>
+        <include file='footer'/>
+        <ul>
+            <!--{foreach from=data  item=obj key=mykey}-->
+            <li>{$obj.name}{$mykey}
+                <!--{foreach   from=obj.data  item=subdata}-->
+                <span><!--{$subdata}--></span>
+                <!--{/foreach}-->
+                </li>
+            <!--{/foreach}-->
+            <!--{foreach from=data  item=obj key=mykey}-->
+            <li>{$obj.name}{$mykey}
+                <!--{foreach   from=obj.data  item=subdata}-->
+                <span><!--{$subdata}--></span>
+                <!--{if $subdata=='item2'}-->
+                    <i>item2有奖励</i>
+                <!--{/if}-->
+                <!--{/foreach}-->
+                </li>
+            <!--{/foreach}-->
+        </ul>
+        <!--{if $is_close==1}-->
+            <a href="javascript:alert('close window');">关闭</a>
+        <!--{elseif $is_close==2}-->
+            <a href="javascript:alert('retry window');">重试</a>
+        <!--{else}-->
+            <a href="javascript:alert('exit window');">退出</a>
+        <!--{/if}-->
+
+        <!--{const:ROOT_PATH}-->
+        __ROOT_PATH__
+        __ROOT__
+        <span style="display:block;">
+            全局函数调用{:get_rand_str|6,name,key}
+            {:debug|$obj}
+            <!--{:debug|$obj}-->
+        </span>
+        <p style="font-size:18px;">18px</p>
+        <p style="font-size:12px;">12px</p>
+        <p style="font-size:10px;">10px</p>
+        <p style="font-size:8px;">8px</p>
+        <p style="font-size:6px;">6px</p>
+    </body>
