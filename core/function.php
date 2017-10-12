@@ -19,12 +19,20 @@ function check_dir($path){
     $tmp_path = "";
     foreach($arr as $key=>$str){
         $tmp_path .= !empty($tmp_path) ? "/".$str : $str;
-        if($is_win){
-            if($key>0){
-                if(!is_dir($tmp_path))mkdir($tmp_path,0777,0777);
+        try {
+            if (!empty($tmp_path)) {
+                if($is_win){
+                    if($key>0){
+                        if(!is_dir($tmp_path))mkdir($tmp_path,0777,0777);
+                    }
+                }else{
+                    $tmp_path = !preg_match('/^\//',$tmp_path) ? "/".$tmp_path : $tmp_path;
+                    if(!is_dir($tmp_path))mkdir($tmp_path,0777,0777);
+                }
             }
-        }else{
-            if(!is_dir($tmp_path))mkdir($tmp_path,0777,0777);
+        }catch(Exception $e) {
+            debug($e->getMessage());
+            debug($tmp_path); 
         }
     }
 }
