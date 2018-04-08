@@ -1,8 +1,11 @@
 <?php
+
+namespace mTemplate\App;
+use mTemplate\App\m_Exception;
 /**
  * 模板引擎内容解析
  */
-class m_template_core{
+class m_core{
     protected $template_dir = "";
     protected $template_filter = "";
     protected $cache_dir="";
@@ -20,7 +23,7 @@ class m_template_core{
                 if(!empty($plugin['class_name']) && !empty($plugin['filename'])){
                     $file_name = $plugin['filename'];
                     if(file_exists($file_name)){
-                        include_once $file_name;
+                        require $file_name;
                         $class_name = $plugin['class_name'];
                         if(class_exists($class_name)){
                             $this->_plugins_obj[] = new $class_name();
@@ -29,12 +32,12 @@ class m_template_core{
                             $err[] = $plugin['class_name'];
                         }
                     }else{
-                        throw new Exception("配置插件有误，文件【{$file_name}】不存在！");
+                        throw new m_Exception("配置插件有误，文件【{$file_name}】不存在！");
                     }
                 }
             }
             if( $has_error){
-                throw new Exception("类【".implode(";",$err)."】不存在！");
+                throw new m_Exception("类【".implode(";",$err)."】不存在！");
             }
         }
     }

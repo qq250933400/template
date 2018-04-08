@@ -1,6 +1,7 @@
- 
 <?php
-require_once "m_core.php";
+namespace mTemplate\App;
+use mTemplate\App\m_core;
+use mTemplate\App\m_Exception;
 /**
  * 模板引擎，只为学习使用，如需应用到项目中，请多做测试
  * 作者：莫书江
@@ -19,12 +20,15 @@ class m_template{
        $this->set_template_dir(ROOT_PATH."/public/views");
        $this->set_filter(".html");
     }
+    /**
+     * 配置解析插件，可多次配置,自动加到差价列表中
+     */
     public function config_plugin($arr){
         $this->_plugins = $this->_plugins && is_array($this->_plugins) ? $this->_plugins : array();
         if(is_array($arr)){
             $this->_plugins = array_merge($this->_plugins,$arr);
         }else{
-            throw new Exception("配置错误的参数!");
+            throw new m_Exception("配置错误的参数!");
         }
     }
     /**
@@ -97,7 +101,7 @@ class m_template{
                 header( 'Content-Type:text/html;charset=utf-8 '); 
                 $str = "";
                 if(!$this->_is_cache || !file_exists($cache_file)){
-                    $core = new m_template_core(array(
+                    $core = new m_core(array(
                         'plugins'=>$this->_plugins,
                     ));
                     $str = $core->get_content($filename,
@@ -113,7 +117,7 @@ class m_template{
                 $template = require_once($cache_file);
                 echo substr($template,0,strlen($template)-1);
                 // echo file_get_contents($cache_file);
-            }catch(Exception $ex){
+            }catch(m_Exception $ex){
                 $this->show_error($ex->getMessage(),0,"解析错误",$ex->getFile()."&nbsp;&nbsp;Line:".$ex->getLine(),$ex->getTraceAsString());
             }
         }else{

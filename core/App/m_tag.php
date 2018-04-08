@@ -1,7 +1,6 @@
- 
 <?php
-
-class m_template_tags{
+namespace mTemplate\App;
+class m_tag{
     /**
      *常量替换
      *

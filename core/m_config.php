@@ -1,4 +1,7 @@
 <?php
+include_once __DIR__."/common/function.php";
+include_once "AutoLoader.php";
+use mTemplate\App\m_app;
 //定义初始化变量
 $d_info = <<<EOT
 <!--江涛模板引擎-->
@@ -11,5 +14,9 @@ define("TEMPLATE_DIR",ROOT_PATH."/public/views/");
 define("TEMPLATE_CACHE",ROOT_PATH."/data/cache/template");
 define("TEMPLATE_FILTER",".html");
 define("TEMPLATE_INFO",$d_info);
-
+define("TEMPLATEPATH", __DIR__."/");
 global $m_template_var;//定义模板变量存储
+global $templateApp;
+$templateApp = new m_app();
+$templateApp->init();
+

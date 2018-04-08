@@ -44,6 +44,7 @@
         <span>数组测试：<?php echo isset($data['test']) ? $data['test'] : "";?></span>
         <a href="index.php?a=clear_cache">清除缓存</a>
         <span>底部文件测试</span>
+</html>
         <ul>
             <?php foreach($data as $mykey=>$obj){ ?>
             <li><?php echo isset($obj['name']) ? $obj['name'] : "";?><?php echo isset($mykey) ? $mykey : "";?>
@@ -85,3 +86,5 @@
         <p style="font-size:8px;">8px</p>
         <p style="font-size:6px;">6px</p>
     </body>
+    <span>底部文件测试</span>
+</html>
